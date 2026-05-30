@@ -98,3 +98,23 @@ flowchart TB
     class vastserver,adcreative adstack
     class otel,prometheus,grafana observability
 ```
+## Local Setup
+### Start Local Stream Ingest Server
+```bash
+docker compose up -d ingest-server
+```
+This would start the ingest server on port 1935 (RTMP).
+### Start Local Stream
+1. Have `ffmpeg` installed on your system.
+2. Give execute permissions to the `start-stream.sh` script:
+```bash
+chmod +x scripts/start-stream.sh
+```
+3. Then run the following script to start the stream:
+```bash
+./scripts/start-stream.sh
+```
+3. When the script asks for `Stream server address: `, enter the RTMP server URL (e.g., `rtmp://localhost/live` or `rtmp://localhost:1935/live`).
+4. When the script asks for `Stream key: `, enter the stream key (e.g., `test`).
+5. The script will then start streaming to the specified server and key.
+> WARNING: This script will start your system's default camera and microphone and stream their feed
