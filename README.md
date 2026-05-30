@@ -25,29 +25,34 @@ and surfaces them on a live Grafana dashboard via OpenTelemetry. Ad breaks are s
 
 ## Architecture
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph INGEST["📡  INGEST"]
+        direction LR
         broadcaster["📡 Broadcaster\nOBS / FFMPEG CLI"]
         nginx["⚡ nginx-rtmp\nRTMP Ingest · :1935"]
     end
 
     subgraph PROCESSING["🎬  PROCESSING"]
+        direction LR
         ffmpeg["🎬 FFMPEG\nReal-time Transcode\n1080p · 720p · 480p"]
         segments["💾 HLS Segments\n.m3u8 + .ts · Shared Volume"]
     end
 
     subgraph DELIVERY["▶️  DELIVERY"]
+        direction LR
         goserver["⚙️ Go Origin Server\nManifests · Stream Keys\nAd Scheduler · QoE API · :8080"]
         shaka["▶️ Shaka Player\nABR · HLS Playback\nQoE Signal Emitter"]
         viewers["👥 Viewers\nMultiple Concurrent\nBrowser Sessions"]
     end
 
     subgraph ADSTACK["📢  AD STACK"]
+        direction LR
         vastserver["📢 Mock VAST Server\nGo HTTP · VAST 2.0 XML\nAd Break Scheduler · :8090"]
         adcreative["🎯 Ad Creative\n15s Test Video · MP4"]
     end
 
     subgraph OBSERVABILITY["📊  OBSERVABILITY"]
+        direction LR
         otel["🔭 OTel Collector\nTraces · Metrics · :4317"]
         prometheus["🔥 Prometheus\nMetrics Store · :9090"]
         grafana["📊 Grafana Dashboard\nQoE Panels · :3000"]
