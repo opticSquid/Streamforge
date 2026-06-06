@@ -6,6 +6,6 @@ type Config struct {
 	HlsRootDir       string
 	RtmpBaseURi      string
 	FFmpegBin        string
-	Port             int
+	Port             string
 	FfmpegTimeoutSec time.Duration
 }
