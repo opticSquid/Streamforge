@@ -30,8 +30,9 @@ func main() {
 	mux := http.NewServeMux()
 	h.RegisterRoutes(mux)
 
-	slog.Info("Stream controller starting", "port", config.Port)
-	if err := http.ListenAndServe(config.Port, mux); err != nil {
+	port := "8081"
+	slog.Info("Stream controller starting", "port", port)
+	if err := http.ListenAndServe(port, mux); err != nil {
 		log.Fatalf("server error %v", err)
 	}
 }
